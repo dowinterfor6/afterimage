@@ -307,6 +307,7 @@ Objects {
       }
       ChatSettings {
         ChatMode {
+          Value: "mc:echatmode:allonly"
         }
         ChatPosition {
           X: 40

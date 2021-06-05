@@ -19,6 +19,7 @@ Objects {
   ChildIds: 9099086678502825259
   ChildIds: 12824032269812950577
   ChildIds: 17105315571532710126
+  ChildIds: 4636556864554432840
   UnregisteredParameters {
   }
   Collidable_v2 {
@@ -31,6 +32,42 @@ Objects {
     Value: "mc:ecollisionsetting:inheritfromparent"
   }
   Folder {
+  }
+}
+Objects {
+  Id: 4636556864554432840
+  Name: "Terrain"
+  Transform {
+    Location {
+    }
+    Rotation {
+    }
+    Scale {
+      X: 1
+      Y: 1
+      Z: 1
+    }
+  }
+  ParentId: 4781671109827199097
+  Collidable_v2 {
+    Value: "mc:ecollisionsetting:forceon"
+  }
+  Visible_v2 {
+    Value: "mc:evisibilitysetting:inheritfromparent"
+  }
+  CameraCollidable {
+    Value: "mc:ecollisionsetting:inheritfromparent"
+  }
+  EditorIndicatorVisibility {
+    Value: "mc:eindicatorvisibility:visiblewhenselected"
+  }
+  Terrain {
+    Material {
+      Id: 16517653648160206115
+    }
+    VoxelSize: 100
+    OctreeDepth: 5
+    GeneratorID: "DEPRECATED"
   }
 }
 Objects {
@@ -67,7 +104,7 @@ Objects {
 }
 Objects {
   Id: 12824032269812950577
-  Name: "Player Settings"
+  Name: "Player"
   Transform {
     Location {
     }
@@ -94,7 +131,7 @@ Objects {
   }
   Folder {
     IsFilePartition: true
-    FilePartitionName: "Player Settings"
+    FilePartitionName: "Player"
   }
 }
 Objects {
