@@ -30,6 +30,10 @@ Objects {
         Id: 7971458693286751151
       }
     }
+    Overrides {
+      Name: "cs:ForwardKeybind"
+      String: "ability_extra_21"
+    }
   }
   Collidable_v2 {
     Value: "mc:ecollisionsetting:inheritfromparent"

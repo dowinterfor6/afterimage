@@ -1,9 +1,9 @@
 Assets {
-  Id: 16517653648160206115
-  Name: "Terrain - Grass"
+  Id: 13953318555671049220
+  Name: "Terrain Grid Glow Topographical"
   PlatformAssetType: 2
   PrimaryAsset {
     AssetType: "MaterialAssetRef"
-    AssetId: "mi_terrain_rock-grass-001_wa"
+    AssetId: "mi_terrain_grid_topographical_001_wa"
   }
 }

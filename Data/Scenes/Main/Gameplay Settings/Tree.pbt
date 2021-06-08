@@ -32,6 +32,14 @@ Objects {
           Name: "IsMountEnabled"
           Bool: false
         }
+        Overrides {
+          Name: "PlayerWalkSpeed"
+          Float: 2000
+        }
+        Overrides {
+          Name: "PlayerGroundFriction"
+          Float: 16
+        }
       }
     }
     ParameterOverrideMap {

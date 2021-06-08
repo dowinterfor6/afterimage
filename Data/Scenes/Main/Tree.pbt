@@ -19,7 +19,8 @@ Objects {
   ChildIds: 9099086678502825259
   ChildIds: 12824032269812950577
   ChildIds: 17105315571532710126
-  ChildIds: 4636556864554432840
+  ChildIds: 5970163440153826576
+  ChildIds: 6045739826303098518
   UnregisteredParameters {
   }
   Collidable_v2 {
@@ -35,7 +36,39 @@ Objects {
   }
 }
 Objects {
-  Id: 4636556864554432840
+  Id: 6045739826303098518
+  Name: "Speed UI"
+  Transform {
+    Location {
+    }
+    Rotation {
+    }
+    Scale {
+      X: 1
+      Y: 1
+      Z: 1
+    }
+  }
+  ParentId: 4781671109827199097
+  Collidable_v2 {
+    Value: "mc:ecollisionsetting:inheritfromparent"
+  }
+  Visible_v2 {
+    Value: "mc:evisibilitysetting:inheritfromparent"
+  }
+  CameraCollidable {
+    Value: "mc:ecollisionsetting:inheritfromparent"
+  }
+  EditorIndicatorVisibility {
+    Value: "mc:eindicatorvisibility:visiblewhenselected"
+  }
+  Folder {
+    IsFilePartition: true
+    FilePartitionName: "Speed UI"
+  }
+}
+Objects {
+  Id: 5970163440153826576
   Name: "Terrain"
   Transform {
     Location {
@@ -63,7 +96,7 @@ Objects {
   }
   Terrain {
     Material {
-      Id: 16517653648160206115
+      Id: 13953318555671049220
     }
     VoxelSize: 100
     OctreeDepth: 5

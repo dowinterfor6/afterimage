@@ -8,10 +8,14 @@
 local afterimageAbilityKeyBinding = script:GetCustomProperty("AfterimageAbilityKeyBinding")
 local afterimageReturnAbilityKeyBinding = script:GetCustomProperty("AfterimageReturnAbilityKeyBinding")
 local afterimageObjectTemplate = script:GetCustomProperty("AfterimageObjectTemplate")
+local forwardKeybind = script:GetCustomProperty("ForwardKeybind")
 
 -- TODO: SetLookWorldRotation is clientside
 
 local playersInfo = {}
+
+-- TODO: Hacky, is changed per player join, but should be same based on server settings
+local originalMaxWalkSpeed
 
 function OnBindingPressed(player, bindingPressed)
 	-- TODO: Not the most elegant, but it works
@@ -91,6 +95,8 @@ function OnPlayerJoined(player)
 	local afterimageReturnAbility
 	local afterimagePosition
 
+	originalMaxWalkSpeed = player.maxWalkSpeed
+
 	-- TODO: Could make a helper function (is this still needed?)
 	local abilities = player:GetAbilities()
 	for _, ability in pairs(abilities) do
@@ -123,6 +129,22 @@ function OnPlayerJoined(player)
 	weapon.targetImpactedEvent:Connect(OnTargetImpactedEvent)
 	player.bindingPressedEvent:Connect(OnBindingPressed)
 	player.bindingReleasedEvent:Connect(OnBindingReleased)
+end
+
+-- TODO: Expensive, see if there's a better way later
+function Tick(dt)
+	-- TODO: ~142 times a second? could probably debounce this and lower to almost single digits depending on performance
+	-- TODO: Add forward keybind speed limit as well maybe
+
+	for _, playerInfo in pairs(playersInfo) do
+		if playerInfo.player.isGrounded then
+			-- TODO: Make var
+			-- TODO: Is lua optimized to not reassign unecessarily?
+			playerInfo.player.maxWalkSpeed = 640
+		else
+			playerInfo.player.maxWalkSpeed = originalMaxWalkSpeed
+		end
+	end
 end
 
 Game.playerJoinedEvent:Connect(OnPlayerJoined)
