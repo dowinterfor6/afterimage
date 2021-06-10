@@ -1,8 +1,8 @@
 Name: "Map"
 RootId: 9099086678502825259
 Objects {
-  Id: 12747247549930090552
-  Name: "Terrain"
+  Id: 7327858829235429174
+  Name: "Fountain Platforms"
   Transform {
     Location {
     }
@@ -29,7 +29,7 @@ Objects {
   }
   Folder {
     IsFilePartition: true
-    FilePartitionName: "Terrain"
+    FilePartitionName: "Fountain Platforms"
   }
 }
 Objects {
@@ -136,7 +136,7 @@ Objects {
         Overrides {
           Name: "Position"
           Vector {
-            Z: -500
+            Z: -6664.79395
           }
         }
       }

@@ -171,7 +171,7 @@ Objects {
     Value: "mc:eindicatorvisibility:visiblewhenselected"
   }
   Control {
-    Width: 100
+    Width: 120
     Height: 35
     UIX: 100
     UIY: 25
@@ -322,7 +322,7 @@ Objects {
     Value: "mc:eindicatorvisibility:visiblewhenselected"
   }
   Control {
-    Width: 100
+    Width: 120
     Height: 35
     UIX: 100
     RenderTransformPivot {

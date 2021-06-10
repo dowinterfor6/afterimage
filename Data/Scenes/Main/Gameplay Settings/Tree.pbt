@@ -40,6 +40,10 @@ Objects {
           Name: "PlayerGroundFriction"
           Float: 16
         }
+        Overrides {
+          Name: "PlayerDefaultRotationRate"
+          Float: -1
+        }
       }
     }
     ParameterOverrideMap {

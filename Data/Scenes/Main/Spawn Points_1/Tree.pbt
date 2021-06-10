@@ -7,10 +7,10 @@ Objects {
     Location {
       X: -1099.85962
       Y: -3694.95044
-      Z: -75
+      Z: 78.6647339
     }
     Rotation {
-      Yaw: -59.9999847
+      Yaw: -60
     }
     Scale {
       X: 1
