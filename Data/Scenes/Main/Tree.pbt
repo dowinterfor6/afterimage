@@ -21,7 +21,8 @@ Objects {
   ChildIds: 17105315571532710126
   ChildIds: 6045739826303098518
   ChildIds: 14213789198223158722
-  ChildIds: 11729983230214143133
+  ChildIds: 9760904774100246251
+  ChildIds: 2413860400986476843
   UnregisteredParameters {
   }
   Collidable_v2 {
@@ -37,13 +38,63 @@ Objects {
   }
 }
 Objects {
-  Id: 11729983230214143133
-  Name: "Skylight"
+  Id: 2413860400986476843
+  Name: "Torii"
   Transform {
     Location {
+      X: -8.25676
+      Y: 3172.95459
+      Z: 53.8507385
     }
     Rotation {
+      Yaw: 89.9999924
     }
+    Scale {
+      X: 1.30776894
+      Y: 1.30776894
+      Z: 1.30776894
+    }
+  }
+  ParentId: 4781671109827199097
+  Collidable_v2 {
+    Value: "mc:ecollisionsetting:inheritfromparent"
+  }
+  Visible_v2 {
+    Value: "mc:evisibilitysetting:inheritfromparent"
+  }
+  TemplateInstance {
+    ParameterOverrideMap {
+      key: 16040728520323005088
+      value {
+        Overrides {
+          Name: "Name"
+          String: "Torii"
+        }
+        Overrides {
+          Name: "Position"
+          Vector {
+            X: -8.25676
+            Y: -3093.67847
+            Z: 53.850708
+          }
+        }
+        Overrides {
+          Name: "Rotation"
+          Rotator {
+            Yaw: 90
+          }
+        }
+      }
+    }
+    TemplateAsset {
+      Id: 6096412569168090118
+    }
+  }
+}
+Objects {
+  Id: 9760904774100246251
+  Name: "Torii"
+  Transform {
     Scale {
       X: 1
       Y: 1
@@ -51,29 +102,38 @@ Objects {
     }
   }
   ParentId: 4781671109827199097
-  UnregisteredParameters {
-    Overrides {
-      Name: "bp:Intensity"
-      Float: 5
-    }
-  }
   Collidable_v2 {
     Value: "mc:ecollisionsetting:inheritfromparent"
   }
   Visible_v2 {
     Value: "mc:evisibilitysetting:inheritfromparent"
   }
-  CameraCollidable {
-    Value: "mc:ecollisionsetting:inheritfromparent"
-  }
-  EditorIndicatorVisibility {
-    Value: "mc:eindicatorvisibility:visiblewhenselected"
-  }
-  Blueprint {
-    BlueprintAsset {
-      Id: 11515840070784317904
+  TemplateInstance {
+    ParameterOverrideMap {
+      key: 16040728520323005088
+      value {
+        Overrides {
+          Name: "Name"
+          String: "Torii"
+        }
+        Overrides {
+          Name: "Position"
+          Vector {
+            X: -8.25676
+            Y: 3172.95459
+            Z: 53.8507385
+          }
+        }
+        Overrides {
+          Name: "Rotation"
+          Rotator {
+            Yaw: 90
+          }
+        }
+      }
     }
-    TeamSettings {
+    TemplateAsset {
+      Id: 6096412569168090118
     }
   }
 }
@@ -106,7 +166,7 @@ Objects {
   }
   Terrain {
     Material {
-      Id: 5517957535056227801
+      Id: 8654769514162295038
     }
     VoxelSize: 75
     OctreeDepth: 5
@@ -194,7 +254,7 @@ Objects {
 }
 Objects {
   Id: 17105315571532710126
-  Name: "Afterimage Ability Display"
+  Name: "Ability UI"
   Transform {
     Location {
     }
@@ -221,12 +281,12 @@ Objects {
   }
   Folder {
     IsFilePartition: true
-    FilePartitionName: "Afterimage Ability Display"
+    FilePartitionName: "Ability UI"
   }
 }
 Objects {
   Id: 12824032269812950577
-  Name: "Player"
+  Name: "Server"
   Transform {
     Location {
     }
@@ -253,7 +313,7 @@ Objects {
   }
   Folder {
     IsFilePartition: true
-    FilePartitionName: "Player"
+    FilePartitionName: "Server"
   }
 }
 Objects {

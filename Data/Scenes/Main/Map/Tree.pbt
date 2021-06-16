@@ -1,48 +1,12 @@
 Name: "Map"
 RootId: 9099086678502825259
 Objects {
-  Id: 7327858829235429174
-  Name: "Fountain Platforms"
-  Transform {
-    Location {
-    }
-    Rotation {
-    }
-    Scale {
-      X: 1
-      Y: 1
-      Z: 1
-    }
-  }
-  ParentId: 9099086678502825259
-  Collidable_v2 {
-    Value: "mc:ecollisionsetting:inheritfromparent"
-  }
-  Visible_v2 {
-    Value: "mc:evisibilitysetting:inheritfromparent"
-  }
-  CameraCollidable {
-    Value: "mc:ecollisionsetting:inheritfromparent"
-  }
-  EditorIndicatorVisibility {
-    Value: "mc:eindicatorvisibility:visiblewhenselected"
-  }
-  Folder {
-    IsFilePartition: true
-    FilePartitionName: "Fountain Platforms"
-  }
-}
-Objects {
   Id: 14873736588017180760
   Name: "Spawn Points"
   Transform {
     Location {
-      X: -3199.99072
-      Y: 1599.9823
-      Z: 125
     }
     Rotation {
-      Yaw: 59.9999847
     }
     Scale {
       X: 1

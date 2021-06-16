@@ -34,15 +34,27 @@ Objects {
         }
         Overrides {
           Name: "PlayerWalkSpeed"
-          Float: 2000
+          Float: 1000
+        }
+        Overrides {
+          Name: "PlayerDefaultRotationRate"
+          Float: -1
         }
         Overrides {
           Name: "PlayerGroundFriction"
           Float: 16
         }
         Overrides {
-          Name: "PlayerDefaultRotationRate"
-          Float: -1
+          Name: "PlayerBrakingDecelerationFalling"
+          Float: 2000
+        }
+        Overrides {
+          Name: "PlayerJumpVelocity"
+          Float: 1500
+        }
+        Overrides {
+          Name: "PlayerGravityScale"
+          Float: 2.5
         }
       }
     }
@@ -106,6 +118,18 @@ Objects {
       Name: "cs:AfterimageEquipment"
       AssetReference {
         Id: 5880733293898341593
+      }
+    }
+    Overrides {
+      Name: "cs:AdvancedDualKatana"
+      AssetReference {
+        Id: 1490300758582109647
+      }
+    }
+    Overrides {
+      Name: "cs:DashEquipment"
+      AssetReference {
+        Id: 13587382029891409052
       }
     }
     Overrides {
@@ -282,6 +306,7 @@ Objects {
       RespawnMode_v2 {
         Value: "mc:erespawnmode:roundrobin"
       }
+      StartSpawned: true
     }
   }
 }

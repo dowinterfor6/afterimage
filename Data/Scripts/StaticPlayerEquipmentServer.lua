@@ -26,6 +26,10 @@ local COMPONENT_ROOT = script:GetCustomProperty("ComponentRoot"):WaitForObject()
 -- User exposed properties
 local EQUIPMENT_TEMPLATE = COMPONENT_ROOT:GetCustomProperty("EquipmentTemplate")
 local AFTERIMAGE_EQUIPMENT = COMPONENT_ROOT:GetCustomProperty("AfterimageEquipment")
+-- TODO: Figure out weapon swapping, might need to do in playercontroller instead
+-- local KATANA_EQUIPMENT = COMPONENT_ROOT:GetCustomProperty("AdvancedDualKatana")
+local DASH_EQUIPMENT = COMPONENT_ROOT:GetCustomProperty("DashEquipment")
+
 local TEAM = COMPONENT_ROOT:GetCustomProperty("Team")
 local REPLACE_ON_EACH_RESPAWN = COMPONENT_ROOT:GetCustomProperty("ReplaceOnEachRespawn")
 
@@ -55,15 +59,20 @@ end
 
 -- nil GivePlayerEquipment(Player)
 -- Gives the referenced equipment to the player
+-- TODO: I should probably figure out why the template uses equipment object
 function GivePlayerEquipment(player)
 	equipment[player] = World.SpawnAsset(EQUIPMENT_TEMPLATE)
 	assert(equipment[player]:IsA("Equipment"))
 	
 	local afterimageEquipment = World.SpawnAsset(AFTERIMAGE_EQUIPMENT)
+	-- local katanaEquipment = World.SpawnAsset(KATANA_EQUIPMENT)
+	local dashEquipment = World.SpawnAsset(DASH_EQUIPMENT)
 	
 	if player then
 		equipment[player]:Equip(player)
 		afterimageEquipment:Equip(player)
+		-- katanaEquipment:Equip(player)
+		dashEquipment:Equip(player)
 	end
 end
 
@@ -99,6 +108,7 @@ function OnPlayerJoined(player)
 		playerTeams[player] = player.team
 	end
 
+	-- TODO: Deprecated
 	if REPLACE_ON_EACH_RESPAWN then
 		player.respawnedEvent:Connect(OnPlayerRespawned)
 	end

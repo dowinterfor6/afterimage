@@ -2697,6 +2697,6 @@ Assets {
   Marketplace {
     Description: "Fountain Prop used in the center of Sniper Alley"
   }
-  SerializationVersion: 87
+  SerializationVersion: 89
   DirectlyPublished: true
 }

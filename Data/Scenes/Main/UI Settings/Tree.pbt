@@ -48,37 +48,6 @@ Objects {
   }
 }
 Objects {
-  Id: 17954389898281489008
-  Name: "Bindings"
-  Transform {
-    Location {
-    }
-    Rotation {
-    }
-    Scale {
-      X: 1
-      Y: 1
-      Z: 1
-    }
-  }
-  ParentId: 16159583700116804603
-  UnregisteredParameters {
-  }
-  Collidable_v2 {
-    Value: "mc:ecollisionsetting:inheritfromparent"
-  }
-  Visible_v2 {
-    Value: "mc:evisibilitysetting:inheritfromparent"
-  }
-  CameraCollidable {
-    Value: "mc:ecollisionsetting:inheritfromparent"
-  }
-  Folder {
-    IsFilePartition: true
-    FilePartitionName: "Bindings"
-  }
-}
-Objects {
   Id: 7151009235376322748
   Name: "Score UI"
   Transform {
