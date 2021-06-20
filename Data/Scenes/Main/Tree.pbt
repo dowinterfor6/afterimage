@@ -19,10 +19,7 @@ Objects {
   ChildIds: 9099086678502825259
   ChildIds: 12824032269812950577
   ChildIds: 17105315571532710126
-  ChildIds: 6045739826303098518
   ChildIds: 14213789198223158722
-  ChildIds: 9760904774100246251
-  ChildIds: 2413860400986476843
   UnregisteredParameters {
   }
   Collidable_v2 {
@@ -35,106 +32,6 @@ Objects {
     Value: "mc:ecollisionsetting:inheritfromparent"
   }
   Folder {
-  }
-}
-Objects {
-  Id: 2413860400986476843
-  Name: "Torii"
-  Transform {
-    Location {
-      X: -8.25676
-      Y: 3172.95459
-      Z: 53.8507385
-    }
-    Rotation {
-      Yaw: 89.9999924
-    }
-    Scale {
-      X: 1.30776894
-      Y: 1.30776894
-      Z: 1.30776894
-    }
-  }
-  ParentId: 4781671109827199097
-  Collidable_v2 {
-    Value: "mc:ecollisionsetting:inheritfromparent"
-  }
-  Visible_v2 {
-    Value: "mc:evisibilitysetting:inheritfromparent"
-  }
-  TemplateInstance {
-    ParameterOverrideMap {
-      key: 16040728520323005088
-      value {
-        Overrides {
-          Name: "Name"
-          String: "Torii"
-        }
-        Overrides {
-          Name: "Position"
-          Vector {
-            X: -8.25676
-            Y: -3093.67847
-            Z: 53.850708
-          }
-        }
-        Overrides {
-          Name: "Rotation"
-          Rotator {
-            Yaw: 90
-          }
-        }
-      }
-    }
-    TemplateAsset {
-      Id: 6096412569168090118
-    }
-  }
-}
-Objects {
-  Id: 9760904774100246251
-  Name: "Torii"
-  Transform {
-    Scale {
-      X: 1
-      Y: 1
-      Z: 1
-    }
-  }
-  ParentId: 4781671109827199097
-  Collidable_v2 {
-    Value: "mc:ecollisionsetting:inheritfromparent"
-  }
-  Visible_v2 {
-    Value: "mc:evisibilitysetting:inheritfromparent"
-  }
-  TemplateInstance {
-    ParameterOverrideMap {
-      key: 16040728520323005088
-      value {
-        Overrides {
-          Name: "Name"
-          String: "Torii"
-        }
-        Overrides {
-          Name: "Position"
-          Vector {
-            X: -8.25676
-            Y: 3172.95459
-            Z: 53.8507385
-          }
-        }
-        Overrides {
-          Name: "Rotation"
-          Rotator {
-            Yaw: 90
-          }
-        }
-      }
-    }
-    TemplateAsset {
-      Id: 6096412569168090118
-    }
   }
 }
 Objects {
@@ -218,38 +115,6 @@ Objects {
         Max: 102400
       }
     }
-  }
-}
-Objects {
-  Id: 6045739826303098518
-  Name: "Speed UI"
-  Transform {
-    Location {
-    }
-    Rotation {
-    }
-    Scale {
-      X: 1
-      Y: 1
-      Z: 1
-    }
-  }
-  ParentId: 4781671109827199097
-  Collidable_v2 {
-    Value: "mc:ecollisionsetting:inheritfromparent"
-  }
-  Visible_v2 {
-    Value: "mc:evisibilitysetting:inheritfromparent"
-  }
-  CameraCollidable {
-    Value: "mc:ecollisionsetting:inheritfromparent"
-  }
-  EditorIndicatorVisibility {
-    Value: "mc:eindicatorvisibility:visiblewhenselected"
-  }
-  Folder {
-    IsFilePartition: true
-    FilePartitionName: "Speed UI"
   }
 }
 Objects {

@@ -66,13 +66,13 @@ function GivePlayerEquipment(player)
 	
 	local afterimageEquipment = World.SpawnAsset(AFTERIMAGE_EQUIPMENT)
 	-- local katanaEquipment = World.SpawnAsset(KATANA_EQUIPMENT)
-	local dashEquipment = World.SpawnAsset(DASH_EQUIPMENT)
+	-- local dashEquipment = World.SpawnAsset(DASH_EQUIPMENT)
 	
 	if player then
 		equipment[player]:Equip(player)
 		afterimageEquipment:Equip(player)
 		-- katanaEquipment:Equip(player)
-		dashEquipment:Equip(player)
+		-- dashEquipment:Equip(player)
 	end
 end
 

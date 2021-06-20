@@ -19,6 +19,30 @@ Objects {
   }
   TemplateInstance {
     ParameterOverrideMap {
+      key: 3741704899867561465
+      value {
+        Overrides {
+          Name: "bp:Ambient Image"
+          Enum {
+            Value: "mc:eambientcubemapssmall:0"
+          }
+        }
+        Overrides {
+          Name: "bp:Intensity"
+          Float: 2.5
+        }
+      }
+    }
+    ParameterOverrideMap {
+      key: 13936598814362314901
+      value {
+        Overrides {
+          Name: "bp:Cast Shadows"
+          Bool: true
+        }
+      }
+    }
+    ParameterOverrideMap {
       key: 15742431864397169539
       value {
         Overrides {
@@ -31,6 +55,23 @@ Objects {
             X: 1
             Y: 1
             Z: 1
+          }
+        }
+      }
+    }
+    ParameterOverrideMap {
+      key: 17055249375078304889
+      value {
+        Overrides {
+          Name: "bp:Cloud Shape"
+          Enum {
+            Value: "mc:ecloudshapes:3"
+          }
+        }
+        Overrides {
+          Name: "bp:High Cloud Index"
+          Enum {
+            Value: "mc:ehighaltitudecloudshapes:0"
           }
         }
       }
