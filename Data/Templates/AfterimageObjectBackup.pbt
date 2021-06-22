@@ -1,6 +1,6 @@
 Assets {
   Id: 7971458693286751151
-  Name: "AfterimageObject"
+  Name: "AfterimageObjectBackup"
   PlatformAssetType: 5
   TemplateAsset {
     ObjectBlock {

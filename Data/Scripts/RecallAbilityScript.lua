@@ -1,0 +1,1 @@
+local componentRoot = script:GetCustomProperty("ComponentRoot"):WaitForObject()

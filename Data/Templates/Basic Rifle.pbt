@@ -15,10 +15,11 @@ Assets {
             Z: 1
           }
         }
-        ParentId: 8568336417442047963
+        ParentId: 4781671109827199097
         ChildIds: 6091570635518507984
         ChildIds: 17342228179914680811
         ChildIds: 14554342770677881249
+        ChildIds: 13812614761587834104
         UnregisteredParameters {
         }
         WantsNetworking: true
@@ -1034,6 +1035,46 @@ Assets {
             Physics {
             }
             BoundsScale: 1
+          }
+        }
+      }
+      Objects {
+        Id: 13812614761587834104
+        Name: "RifleScript"
+        Transform {
+          Location {
+          }
+          Rotation {
+          }
+          Scale {
+            X: 1
+            Y: 1
+            Z: 1
+          }
+        }
+        ParentId: 5545984700063622192
+        UnregisteredParameters {
+          Overrides {
+            Name: "cs:DamageToAfterimage"
+            Int: 50
+          }
+        }
+        WantsNetworking: true
+        Collidable_v2 {
+          Value: "mc:ecollisionsetting:inheritfromparent"
+        }
+        Visible_v2 {
+          Value: "mc:evisibilitysetting:inheritfromparent"
+        }
+        CameraCollidable {
+          Value: "mc:ecollisionsetting:inheritfromparent"
+        }
+        EditorIndicatorVisibility {
+          Value: "mc:eindicatorvisibility:visiblewhenselected"
+        }
+        Script {
+          ScriptAsset {
+            Id: 11313551549971915809
           }
         }
       }

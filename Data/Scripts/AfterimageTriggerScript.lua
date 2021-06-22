@@ -11,6 +11,9 @@ end
 
 -- TODO: Semi temp solution, will probably error out when 2 players overlap at the same time
 --       but hopefully that never happens
+-- TODO: This is a little buggy lol, if player collides quickly, it will have collision and "bounce"
+--       if not, if slow enough, then they can pass through
+
 function OnEndOverlap(theTrigger, player)
   if (not player or not player:IsA("Player")) then return end
 
