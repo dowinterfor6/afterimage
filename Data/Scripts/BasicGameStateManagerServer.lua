@@ -22,10 +22,17 @@ local COMPONENT_ROOT = script:GetCustomProperty("ComponentRoot"):WaitForObject()
 -- User exposed properties
 local LOBBY_HAS_DURATION = COMPONENT_ROOT:GetCustomProperty("LobbyHasDuration")
 local LOBBY_DURATION = COMPONENT_ROOT:GetCustomProperty("LobbyDuration")
+local ROUND_START_HAS_DURATION = COMPONENT_ROOT:GetCustomProperty("RoundStartHasDuration")
+local ROUND_START_DURATION = COMPONENT_ROOT:GetCustomProperty("RoundStartDuration")
 local ROUND_HAS_DURATION = COMPONENT_ROOT:GetCustomProperty("RoundHasDuration")
 local ROUND_DURATION = COMPONENT_ROOT:GetCustomProperty("RoundDuration")
 local ROUND_END_HAS_DURATION = COMPONENT_ROOT:GetCustomProperty("RoundEndHasDuration")
 local ROUND_END_DURATION = COMPONENT_ROOT:GetCustomProperty("RoundEndDuration")
+local GAME_END_HAS_DURATION = COMPONENT_ROOT:GetCustomProperty("GameEndHasDuration")
+local GAME_END_DURATION = COMPONENT_ROOT:GetCustomProperty("GameEndDuration")
+
+local scoreboard = {}
+local gameEnded = false
 
 -- Check user properties
 if LOBBY_DURATION < 0.0 then
@@ -70,12 +77,18 @@ function SetGameState(newState)
 	if newState == ABGS.GAME_STATE_LOBBY then
 		stateHasduration = LOBBY_HAS_DURATION
 		stateDuration = LOBBY_DURATION
+	elseif newState == ABGS.GAME_STATE_ROUND_START then
+		stateHasduration = ROUND_START_HAS_DURATION
+		stateDuration = ROUND_START_DURATION
 	elseif newState == ABGS.GAME_STATE_ROUND then
 		stateHasduration = ROUND_HAS_DURATION
 		stateDuration = ROUND_DURATION
 	elseif newState == ABGS.GAME_STATE_ROUND_END then
 		stateHasduration = ROUND_END_HAS_DURATION
 		stateDuration = ROUND_END_DURATION
+	elseif newState == ABGS.GAME_STATE_GAME_END then
+		stateHasduration = GAME_END_HAS_DURATION
+		stateDuration = GAME_END_DURATION
 	else
 		error("Tried to set game state to unknown state %d", newState)
 	end
@@ -125,18 +138,36 @@ function Tick(deltaTime)
 		local previousState = GetGameState()
 		local nextState
 		if previousState == ABGS.GAME_STATE_LOBBY then
-			nextState = ABGS.GAME_STATE_ROUND
+			nextState = ABGS.GAME_STATE_ROUND_START
 		elseif previousState == ABGS.GAME_STATE_ROUND then
+			-- TODO: Check timeout instead of kill
 			nextState = ABGS.GAME_STATE_ROUND_END
 		elseif previousState == ABGS.GAME_STATE_ROUND_END then
-			nextState = ABGS.GAME_STATE_LOBBY
+			nextState = ABGS.GAME_STATE_ROUND_START
+		elseif previousState == ABGS.GAME_STATE_ROUND_START and not gameEnded then
+			nextState = ABGS.GAME_STATE_ROUND
+		else
+			nextState = ABGS.GAME_STATE_GAME_END
 		end
 
 		SetGameState(nextState)
 	end
 end
 
+function OnPlayerRoundVictory(winner)
+	if scoreboard[winner.id] == nil then
+		scoreboard[winner.id] = 1
+	else
+		scoreboard[winner.id] = scoreboard[winner.id] + 1
+	end
+
+	-- TODO: Make this configurable
+	gameEnded = scoreboard[winner.id] == 3
+end
+
 -- Initialize
 SetGameState(ABGS.GAME_STATE_LOBBY)
 
 ABGS.RegisterGameStateManagerServer(GetGameState, GetTimeRemainingInState, SetGameState, SetTimeRemainingInState)
+
+Events.Connect("PlayerVictory", OnPlayerRoundVictory)

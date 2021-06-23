@@ -48,6 +48,9 @@ function Tick(deltaTime)
 
 		for _, player in pairs(Game.GetPlayers()) do
 			if player.kills >= KILL_LIMIT then
+				-- TODO: End round on player.kill, use kills to keep track?
+				-- Probably use diedEvent, keep track when player dies, up to limit
+				player.kills = 0
 				if winner then
 					Events.Broadcast("TieVictory")
 					ABGS.SetGameState(ABGS.GAME_STATE_ROUND_END)

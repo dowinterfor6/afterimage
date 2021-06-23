@@ -24,8 +24,10 @@ local STATE_TIME_TEXT = script:GetCustomProperty("StateTimeText"):WaitForObject(
 -- User exposed settings
 local SHOW_STATE_NAME = COMPONENT_ROOT:GetCustomProperty("ShowStateName")
 local SHOW_DURING_LOBBY = COMPONENT_ROOT:GetCustomProperty("ShowDuringLobby")
+local SHOW_DURING_ROUND_START = COMPONENT_ROOT:GetCustomProperty("ShowDuringRoundStart")
 local SHOW_DURING_ROUND = COMPONENT_ROOT:GetCustomProperty("ShowDuringRound")
 local SHOW_DURING_ROUND_END = COMPONENT_ROOT:GetCustomProperty("ShowDuringRoundEnd")
+local SHOW_DURING_GAME_END = COMPONENT_ROOT:GetCustomProperty("ShowDuringGameEnd")
 
 -- nil UpdateTimeRemaining(int)
 -- Displays time remaining in hh:mm:ss format
@@ -53,13 +55,24 @@ function Tick(deltaTime)
             UpdateTimeRemaining(remainingTime)
         end
 
+        if currentState == ABGS.GAME_STATE_ROUND_START and SHOW_DURING_ROUND_START then
+            STATE_NAME_TEXT.text = "Round Start"
+            UpdateTimeRemaining(remainingTime)
+        end
+
         if currentState == ABGS.GAME_STATE_ROUND and SHOW_DURING_ROUND then
             STATE_NAME_TEXT.text = "Round"
             UpdateTimeRemaining(remainingTime)
         end
 
         if currentState == ABGS.GAME_STATE_ROUND_END and SHOW_DURING_ROUND_END then
-            STATE_NAME_TEXT.text = "End"
+            STATE_NAME_TEXT.text = "Round End"
+            UpdateTimeRemaining(remainingTime)
+        end
+
+        
+        if currentState == ABGS.GAME_STATE_GAME_END and SHOW_DURING_GAME_END then
+            STATE_NAME_TEXT.text = "Game End"
             UpdateTimeRemaining(remainingTime)
         end
     end
