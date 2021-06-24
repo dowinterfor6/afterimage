@@ -100,7 +100,7 @@ Assets {
             ReloadAbility {
               SubObjectId: 17342228179914680811
             }
-            Damage: 15
+            Damage: 20
           }
         }
       }

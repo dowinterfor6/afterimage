@@ -6,16 +6,9 @@ function OnTargetImpactedEvent(weapon, impactData)
 
 	if target.parent ~= nil and target.parent:GetCustomProperty("IsAfterimage") then
 		local targetPlayerId = target.parent:GetCustomProperty("AfterimageObjectOwner")
-		
-		local damageInfo = Damage.New(damageToAfterimage)
-		damageInfo.reason = DamageReason.COMBAT
-		-- TODO: damageInfo.sourceAbility as afterimage ability for killfeed?
-		damageInfo.sourcePlayer = impactData.weaponOwner
-
     local targetPlayer
-
     local allPlayers = Game.GetPlayers()
-
+    
     -- TODO: Prevent damage to own afterimage?
     for _, player in ipairs(allPlayers) do
       if player.id == targetPlayerId then
@@ -23,7 +16,12 @@ function OnTargetImpactedEvent(weapon, impactData)
         break
       end
     end
-
+    
+    if targetPlayer == impactData.weaponOwner then return end
+    
+    local damageInfo = Damage.New(damageToAfterimage)
+    damageInfo.reason = DamageReason.COMBAT
+    damageInfo.sourcePlayer = impactData.weaponOwner
 		targetPlayer:ApplyDamage(damageInfo)		
 
     target.parent:Destroy()

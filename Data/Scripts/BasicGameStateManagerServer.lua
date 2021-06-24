@@ -15,6 +15,8 @@ COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER I
 OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 --]]
 
+-- TODO: stop tracking things in ROUND_END, prevent movement in ROUND_START, free movement in GAME_END
+
 -- Internal custom properties
 local ABGS = require(script:GetCustomProperty("API"))
 local COMPONENT_ROOT = script:GetCustomProperty("ComponentRoot"):WaitForObject()
@@ -139,18 +141,36 @@ function Tick(deltaTime)
 		local nextState
 		if previousState == ABGS.GAME_STATE_LOBBY then
 			nextState = ABGS.GAME_STATE_ROUND_START
-		elseif previousState == ABGS.GAME_STATE_ROUND then
-			-- TODO: Check timeout instead of kill
-			nextState = ABGS.GAME_STATE_ROUND_END
-		elseif previousState == ABGS.GAME_STATE_ROUND_END then
-			nextState = ABGS.GAME_STATE_ROUND_START
-		elseif previousState == ABGS.GAME_STATE_ROUND_START and not gameEnded then
+		elseif previousState == ABGS.GAME_STATE_ROUND_START then
 			nextState = ABGS.GAME_STATE_ROUND
+		elseif previousState == ABGS.GAME_STATE_ROUND then
+			-- TODO: Needs to not count kills/deaths during round end
+			nextState = ABGS.GAME_STATE_ROUND_END
+		elseif previousState == ABGS.GAME_STATE_ROUND_END and not gameEnded then
+			nextState = ABGS.GAME_STATE_ROUND_START
 		else
 			nextState = ABGS.GAME_STATE_GAME_END
 		end
 
 		SetGameState(nextState)
+	end
+
+	local currState = GetGameState()
+	local playerEnabled = currState == ABGS.GAME_STATE_ROUND or currState == ABGS.GAME_STATE_LOBBY
+
+	-- TODO: This is honestly terrible but will do for now
+	for _, player in pairs(Game.GetPlayers()) do
+		if playerEnabled then
+			player.movementControlMode = MovementControlMode.LOOK_RELATIVE
+		else
+			player.movementControlMode = MovementControlMode.NONE
+		end
+
+		local abilities = player:GetAbilities()
+
+		for _, ability in pairs(abilities) do
+			ability.isEnabled = playerEnabled
+		end
 	end
 end
 

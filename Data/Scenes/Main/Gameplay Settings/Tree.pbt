@@ -41,10 +41,6 @@ Objects {
           Float: -1
         }
         Overrides {
-          Name: "PlayerGroundFriction"
-          Float: 16
-        }
-        Overrides {
           Name: "PlayerBrakingDecelerationFalling"
           Float: 2000
         }
@@ -302,7 +298,7 @@ Objects {
   }
   Settings {
     RespawnSettings {
-      RespawnDelay: 5
+      RespawnDelay: 10
       RespawnMode_v2 {
         Value: "mc:erespawnmode:roundrobin"
       }

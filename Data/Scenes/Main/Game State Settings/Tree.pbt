@@ -197,6 +197,10 @@ Objects {
             Z: 1
           }
         }
+        Overrides {
+          Name: "cs:Period"
+          Float: 0
+        }
       }
     }
     TemplateAsset {
@@ -232,11 +236,11 @@ Objects {
     }
     Overrides {
       Name: "cs:RoundHasDuration"
-      Bool: false
+      Bool: true
     }
     Overrides {
       Name: "cs:RoundDuration"
-      Float: 120
+      Float: 5
     }
     Overrides {
       Name: "cs:RoundEndHasDuration"
