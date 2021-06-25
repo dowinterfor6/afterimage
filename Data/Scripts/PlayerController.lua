@@ -37,7 +37,7 @@ function OnBindingPressed(player, bindingPressed)
 		bindingPressed == rightKeybind
 	then
 		local player = playerInfo.player
-		if player.isGrounded then return end
+		-- if player.isGrounded then return end
 		local playerInputs = playerInfo.playerInputs
 		local playerInputKey = keybindToLastPressedKeyMap[bindingPressed]
 		local playerLastInput = playerInputs[playerInputKey]

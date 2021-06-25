@@ -20,15 +20,15 @@ Assets {
         UnregisteredParameters {
           Overrides {
             Name: "cs:Binding"
-            String: "ability_primary"
+            String: "ability_extra_20"
           }
           Overrides {
             Name: "cs:BindingHint"
-            String: "M1"
+            String: "Q"
           }
           Overrides {
             Name: "cs:ShowAbilityName"
-            Bool: false
+            Bool: true
           }
           Overrides {
             Name: "cs:HideWhenDisabled"
@@ -278,8 +278,7 @@ Assets {
         Control {
           Width: 100
           Height: 200
-          UIX: 100
-          UIY: -50
+          UIX: -450
           RenderTransformPivot {
             Anchor {
               Value: "mc:euianchor:middlecenter"
@@ -291,12 +290,12 @@ Assets {
           AnchorLayout {
             SelfAnchor {
               Anchor {
-                Value: "mc:euianchor:bottomleft"
+                Value: "mc:euianchor:bottomright"
               }
             }
             TargetAnchor {
               Anchor {
-                Value: "mc:euianchor:bottomleft"
+                Value: "mc:euianchor:bottomright"
               }
             }
           }
@@ -330,8 +329,8 @@ Assets {
         }
         Control {
           Width: 100
-          Height: 44
-          UIY: 72
+          Height: 38
+          UIY: 62.5
           RenderTransformPivot {
             Anchor {
               Value: "mc:euianchor:middlecenter"
@@ -345,7 +344,7 @@ Assets {
               B: 1
               A: 1
             }
-            Size: 20
+            Size: 18
             Justification {
               Value: "mc:etextjustify:center"
             }
@@ -395,8 +394,8 @@ Assets {
         }
         Control {
           Width: 100
-          Height: 44
-          UIY: -72
+          Height: 38
+          UIY: -62.5
           RenderTransformPivot {
             Anchor {
               Value: "mc:euianchor:middlecenter"
@@ -410,7 +409,7 @@ Assets {
               B: 1
               A: 1
             }
-            Size: 20
+            Size: 18
             Justification {
               Value: "mc:etextjustify:center"
             }
@@ -467,7 +466,7 @@ Assets {
           }
           Image {
             Brush {
-              Id: 5196377603841433560
+              Id: 622433789355555801
             }
             Color {
               A: 0.3
@@ -523,10 +522,13 @@ Assets {
           }
           Image {
             Brush {
-              Id: 16327934883181731081
+              Id: 15038246918448350817
             }
             Color {
-              A: 0.75
+              R: 1
+              G: 1
+              B: 1
+              A: 0.400000036
             }
           }
           AnchorLayout {
@@ -885,21 +887,21 @@ Assets {
       }
     }
     Assets {
-      Id: 5196377603841433560
-      Name: "BG Gradient 001"
+      Id: 622433789355555801
+      Name: "BG Flat 001"
       PlatformAssetType: 9
       PrimaryAsset {
         AssetType: "PlatformBrushAssetRef"
-        AssetId: "BackgroundFlat_020"
+        AssetId: "BackgroundNoOutline_020"
       }
     }
     Assets {
-      Id: 16327934883181731081
-      Name: "Icon Food"
+      Id: 15038246918448350817
+      Name: "Emblem 2"
       PlatformAssetType: 9
       PrimaryAsset {
         AssetType: "PlatformBrushAssetRef"
-        AssetId: "Icon_Food"
+        AssetId: "UI_Japan_Icon_015"
       }
     }
     PrimaryAssetId {

@@ -66,6 +66,24 @@ Objects {
       }
     }
     ParameterOverrideMap {
+      key: 6219201966372446009
+      value {
+        Overrides {
+          Name: "UIY"
+          Float: 75
+        }
+      }
+    }
+    ParameterOverrideMap {
+      key: 11251882608701336077
+      value {
+        Overrides {
+          Name: "UIY"
+          Float: -65
+        }
+      }
+    }
+    ParameterOverrideMap {
       key: 13280367607995188053
       value {
         Overrides {
@@ -82,11 +100,11 @@ Objects {
         }
         Overrides {
           Name: "UIX"
-          Float: -210
+          Float: -595
         }
         Overrides {
           Name: "UIY"
-          Float: -10
+          Float: 0
         }
       }
     }
@@ -96,7 +114,7 @@ Objects {
         Overrides {
           Name: "Image"
           AssetReference {
-            Id: 14668787152325824855
+            Id: 12354222012414256960
           }
         }
         Overrides {

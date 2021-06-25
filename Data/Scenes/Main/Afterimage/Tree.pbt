@@ -26,26 +26,6 @@ Objects {
           String: "Ability Display"
         }
         Overrides {
-          Name: "Scale"
-          Vector {
-            X: 1
-            Y: 1
-            Z: 1
-          }
-        }
-        Overrides {
-          Name: "cs:Binding"
-          String: "ability_extra_20"
-        }
-        Overrides {
-          Name: "cs:BindingHint"
-          String: "Q"
-        }
-        Overrides {
-          Name: "cs:ShowAbilityName"
-          Bool: true
-        }
-        Overrides {
           Name: "Position"
           Vector {
           }
@@ -58,47 +38,29 @@ Objects {
       }
     }
     ParameterOverrideMap {
-      key: 13280367607995188053
+      key: 6219201966372446009
       value {
         Overrides {
-          Name: "Anchor"
-          Enum {
-            Value: "mc:euianchor:bottomright"
-          }
-        }
-        Overrides {
-          Name: "Dock"
-          Enum {
-            Value: "mc:euianchor:bottomright"
-          }
-        }
-        Overrides {
-          Name: "UIX"
-          Float: -110
-        }
-        Overrides {
           Name: "UIY"
-          Float: -10
+          Float: 75
         }
       }
     }
     ParameterOverrideMap {
-      key: 14155720757392291425
+      key: 11251882608701336077
       value {
         Overrides {
-          Name: "Image"
-          AssetReference {
-            Id: 15038246918448350817
-          }
+          Name: "UIY"
+          Float: -62.5
         }
+      }
+    }
+    ParameterOverrideMap {
+      key: 13280367607995188053
+      value {
         Overrides {
-          Name: "Color"
-          Color {
-            R: 1
-            G: 1
-            B: 1
-            A: 0.400000036
-          }
+          Name: "UIX"
+          Float: -475
         }
       }
     }

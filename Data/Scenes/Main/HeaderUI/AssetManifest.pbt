@@ -1,9 +1,9 @@
 Assets {
-  Id: 5081856099925503885
-  Name: "Icon Player Mount"
+  Id: 10984843847366560004
+  Name: "Sci-fi Frame 009"
   PlatformAssetType: 9
   PrimaryAsset {
     AssetType: "PlatformBrushAssetRef"
-    AssetId: "Icon_PlayerMount"
+    AssetId: "UI_Scifi_Frame_010"
   }
 }

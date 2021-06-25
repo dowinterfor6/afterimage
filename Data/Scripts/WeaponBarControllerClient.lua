@@ -17,13 +17,9 @@ OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 
 -- Internal custom properties
 local AS = require(script:GetCustomProperty("API"))
-local COMPONENT_ROOT = script:GetCustomProperty("ComponentRoot"):WaitForObject()
-local TEXT_BOX = script:GetCustomProperty("TextBox"):WaitForObject()
-local PROGRESS_BAR = script:GetCustomProperty("ProgressBar"):WaitForObject()
+local AMMO_TEXT = script:GetCustomProperty("AmmoText"):WaitForObject()
 
 -- User exposed properties
-local SHOW_NUMBER = COMPONENT_ROOT:GetCustomProperty("ShowNumber")
-local SHOW_MAXIMUM = COMPONENT_ROOT:GetCustomProperty("ShowMaximum")
 local LOCAL_PLAYER = Game.GetLocalPlayer()
 
 -- Player GetViewedPlayer()
@@ -49,26 +45,12 @@ function GetWeapon(player)
 end
 
 function Tick(deltaTime)
-    local player = GetViewedPlayer()
-    if player then
-        local healthFraction = player.hitPoints / player.maxHitPoints
-        PROGRESS_BAR.progress = healthFraction
-
-        -- if SHOW_NUMBER then
-        --     if SHOW_MAXIMUM then
-        --         TEXT_BOX.text = string.format("%.0f / %.0f", player.hitPoints, player.maxHitPoints)
-        --     else
-        --         TEXT_BOX.text = string.format("%.0f", player.hitPoints)
-        --     end
-        -- end
+  local player = GetViewedPlayer()
+  if player then
+    local weapon = GetWeapon(player)
+    if weapon ~= nil then
+      AMMO_TEXT.text = tostring(weapon.currentAmmo)
     end
+  end
 end
 
--- Initialize
-if not SHOW_NUMBER then
-    TEXT_BOX.visibility = Visibility.FORCE_OFF
-end
-
-PROGRESS_BAR.progress = 1
-
-TEXT_BOX.text = LOCAL_PLAYER.name

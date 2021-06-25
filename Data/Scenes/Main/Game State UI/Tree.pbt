@@ -1,6 +1,38 @@
 Name: "Game State UI"
 RootId: 11692527161536598169
 Objects {
+  Id: 10724655238035610816
+  Name: "HeaderUI"
+  Transform {
+    Location {
+    }
+    Rotation {
+    }
+    Scale {
+      X: 1
+      Y: 1
+      Z: 1
+    }
+  }
+  ParentId: 11692527161536598169
+  Collidable_v2 {
+    Value: "mc:ecollisionsetting:inheritfromparent"
+  }
+  Visible_v2 {
+    Value: "mc:evisibilitysetting:inheritfromparent"
+  }
+  CameraCollidable {
+    Value: "mc:ecollisionsetting:inheritfromparent"
+  }
+  EditorIndicatorVisibility {
+    Value: "mc:eindicatorvisibility:visiblewhenselected"
+  }
+  Folder {
+    IsFilePartition: true
+    FilePartitionName: "HeaderUI"
+  }
+}
+Objects {
   Id: 3872064198522895997
   Name: "Game State Display"
   Transform {

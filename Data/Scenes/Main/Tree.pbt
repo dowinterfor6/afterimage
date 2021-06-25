@@ -18,7 +18,6 @@ Objects {
   ChildIds: 16159583700116804603
   ChildIds: 9099086678502825259
   ChildIds: 12824032269812950577
-  ChildIds: 17105315571532710126
   ChildIds: 14213789198223158722
   UnregisteredParameters {
   }
@@ -451,38 +450,6 @@ Objects {
         Max: 102400
       }
     }
-  }
-}
-Objects {
-  Id: 17105315571532710126
-  Name: "Ability UI"
-  Transform {
-    Location {
-    }
-    Rotation {
-    }
-    Scale {
-      X: 1
-      Y: 1
-      Z: 1
-    }
-  }
-  ParentId: 4781671109827199097
-  Collidable_v2 {
-    Value: "mc:ecollisionsetting:inheritfromparent"
-  }
-  Visible_v2 {
-    Value: "mc:evisibilitysetting:inheritfromparent"
-  }
-  CameraCollidable {
-    Value: "mc:ecollisionsetting:inheritfromparent"
-  }
-  EditorIndicatorVisibility {
-    Value: "mc:eindicatorvisibility:visiblewhenselected"
-  }
-  Folder {
-    IsFilePartition: true
-    FilePartitionName: "Ability UI"
   }
 }
 Objects {

@@ -52,6 +52,14 @@ Objects {
           Name: "PlayerGravityScale"
           Float: 2.5
         }
+        Overrides {
+          Name: "PlayerGroundFriction"
+          Float: 4
+        }
+        Overrides {
+          Name: "PlayerMaxAcceleration"
+          Float: 1e+18
+        }
       }
     }
     ParameterOverrideMap {
