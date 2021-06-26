@@ -1,3 +1,5 @@
+local ABGS = require(script:GetCustomProperty("API"))
+
 -- Disable/visibility off afterimage objects after round over
 
 local forwardKeybind = script:GetCustomProperty("ForwardKeybind")
@@ -25,6 +27,10 @@ local rotationOffsetMap = {
 }
 
 function OnBindingPressed(player, bindingPressed)
+	local currState = ABGS:GetGameState()
+	local playerEnabled = currState == ABGS.GAME_STATE_ROUND or currState == ABGS.GAME_STATE_LOBBY
+	if not playerEnabled then return end
+
 	local playerInfo = playersInfo[player.id]
 
 	if

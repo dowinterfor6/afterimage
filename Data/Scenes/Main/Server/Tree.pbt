@@ -54,6 +54,12 @@ Objects {
       Name: "cs:DoubleTapWindow"
       Float: 0.25
     }
+    Overrides {
+      Name: "cs:API"
+      AssetReference {
+        Id: 11974742996071064388
+      }
+    }
   }
   Collidable_v2 {
     Value: "mc:ecollisionsetting:inheritfromparent"

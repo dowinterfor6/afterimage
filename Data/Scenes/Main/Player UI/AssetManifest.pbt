@@ -1,10 +1,10 @@
 Assets {
-  Id: 14283408574239939046
-  Name: "Weapon Assault Rifle 002"
+  Id: 12541218861172990671
+  Name: "Weapon Assault Rifle 005"
   PlatformAssetType: 9
   PrimaryAsset {
     AssetType: "PlatformBrushAssetRef"
-    AssetId: "UI_Military_Weapon_AssaultRifle_002"
+    AssetId: "UI_Military_Weapon_AssaultRifle_005"
   }
 }
 Assets {

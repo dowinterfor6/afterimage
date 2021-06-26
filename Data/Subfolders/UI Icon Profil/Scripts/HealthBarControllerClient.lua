@@ -15,51 +15,50 @@ COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER I
 OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 --]]
 
---[[
-Displays text associated with the BannerMessage() event that takes the following forms:
-
-BannerMessage(String message)
-BannerMessage(String message, float duration)
---]]
-
 -- Internal custom properties
+local AS = require(script:GetCustomProperty("API"))
 local COMPONENT_ROOT = script:GetCustomProperty("ComponentRoot"):WaitForObject()
-local PANEL = script:GetCustomProperty("Panel"):WaitForObject()
 local TEXT_BOX = script:GetCustomProperty("TextBox"):WaitForObject()
+local PROGRESS_BAR = script:GetCustomProperty("ProgressBar"):WaitForObject()
+local PROGRESS_IMAGE = script:GetCustomProperty("ProfileImage"):WaitForObject()
 
 -- User exposed properties
-local DEFAULT_DURATION = COMPONENT_ROOT:GetCustomProperty("DefaultDuration")
+local SHOW_NUMBER = COMPONENT_ROOT:GetCustomProperty("ShowNumber")
+local SHOW_MAXIMUM = COMPONENT_ROOT:GetCustomProperty("ShowMaximum")
+local LOCAL_PLAYER = Game.GetLocalPlayer()
 
--- Check user properties
-if DEFAULT_DURATION <= 0.0 then
-    warn("DefaultDuration must be positive")
-    DEFAULT_DURATION = 2.0
-end
+-- Player GetViewedPlayer()
+-- Returns which player the local player is spectating (or themselves if not spectating)
+function GetViewedPlayer()
+    local specatatorTarget = AS.GetSpectatorTarget()
 
--- Variables
-local messageEndTime = 0.0
-
--- nil OnBannerMessageEvent(string, <float>)
--- Handles a client side banner message event
-function OnBannerMessageEvent(message, duration)
-    if duration then
-        messageEndTime = time() + duration
-    else
-        messageEndTime = time() + DEFAULT_DURATION
+    if AS.IsSpectating() and specatatorTarget then
+        return specatatorTarget
     end
 
-    PANEL.visibility = Visibility.INHERIT
-    TEXT_BOX.text = message
+    return LOCAL_PLAYER
 end
 
--- nil Tick(float)
--- Hides the banner when the message has expired
 function Tick(deltaTime)
-	if time() > messageEndTime then
-		PANEL.visibility = Visibility.FORCE_OFF
-	end
+    local player = GetViewedPlayer()
+    if player then
+        local healthFraction = player.hitPoints / player.maxHitPoints
+        PROGRESS_BAR.progress = healthFraction
+
+        if SHOW_NUMBER then
+            if SHOW_MAXIMUM then
+                TEXT_BOX.text = string.format("%.0f / %.0f", player.hitPoints, player.maxHitPoints)
+            else
+                TEXT_BOX.text = string.format("%.0f", player.hitPoints)
+            end
+        end
+        PROGRESS_IMAGE:SetImage(player)
+    end
 end
 
 -- Initialize
-PANEL.visibility = Visibility.FORCE_OFF
-Events.Connect("BannerMessage", OnBannerMessageEvent)
+if not SHOW_NUMBER then
+    TEXT_BOX.isVisible = false
+end
+
+PROGRESS_BAR.progress = 1

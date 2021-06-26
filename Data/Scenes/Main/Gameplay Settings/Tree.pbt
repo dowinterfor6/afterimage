@@ -58,7 +58,7 @@ Objects {
         }
         Overrides {
           Name: "PlayerMaxAcceleration"
-          Float: 1e+18
+          Float: 9999
         }
       }
     }

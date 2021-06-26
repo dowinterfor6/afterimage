@@ -41,10 +41,11 @@ recallAbility.castEvent:Connect(OnRecallAbilityCast)
 
 function OnGameStateChanged(oldState, newState, hasDuration, endTime)
   -- TODO: Ability becomes out of sync, disable abilities during ROUND_START and ROUND_END as a bandaid fix
-  if afterimageObject then
+  if afterimageObject and Object.IsValid(afterimageObject) then
     afterimageObject:Destroy()
-    afterimageObject = nil
   end
+  afterimageObject = nil
+  
 end
 
 Events.Connect("GameStateChanged", OnGameStateChanged)

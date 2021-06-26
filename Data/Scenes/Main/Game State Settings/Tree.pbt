@@ -240,7 +240,7 @@ Objects {
     }
     Overrides {
       Name: "cs:RoundDuration"
-      Float: 5
+      Float: 180
     }
     Overrides {
       Name: "cs:RoundEndHasDuration"
@@ -248,7 +248,7 @@ Objects {
     }
     Overrides {
       Name: "cs:RoundEndDuration"
-      Float: 3
+      Float: 4
     }
     Overrides {
       Name: "cs:RoundStartHasDuration"
@@ -256,7 +256,7 @@ Objects {
     }
     Overrides {
       Name: "cs:RoundStartDuration"
-      Float: 3
+      Float: 4
     }
     Overrides {
       Name: "cs:GameEndHasDuration"

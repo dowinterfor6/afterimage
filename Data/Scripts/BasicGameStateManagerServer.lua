@@ -155,15 +155,19 @@ function Tick(deltaTime)
 		SetGameState(nextState)
 	end
 
+
 	local currState = GetGameState()
 	local playerEnabled = currState == ABGS.GAME_STATE_ROUND or currState == ABGS.GAME_STATE_LOBBY
 
 	-- TODO: This is honestly terrible but will do for now
+	-- TODO: Disable jump is kinda temp
 	for _, player in pairs(Game.GetPlayers()) do
 		if playerEnabled then
 			player.movementControlMode = MovementControlMode.LOOK_RELATIVE
+			player.maxJumpCount = 1
 		else
 			player.movementControlMode = MovementControlMode.NONE
+			player.maxJumpCount = 0
 		end
 
 		local abilities = player:GetAbilities()
@@ -173,6 +177,9 @@ function Tick(deltaTime)
 		end
 	end
 end
+
+-- TODO: Handle all round end conditions when transitioning rounds
+-- e.g. kill, fall to death, timeout
 
 function OnPlayerRoundVictory(winner)
 	if scoreboard[winner.id] == nil then
