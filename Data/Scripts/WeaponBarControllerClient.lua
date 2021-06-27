@@ -16,11 +16,26 @@ OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 --]]
 
 -- Internal custom properties
+local ABGS = require(script:GetCustomProperty("ABGSAPI"))
 local AS = require(script:GetCustomProperty("API"))
 local AMMO_TEXT = script:GetCustomProperty("AmmoText"):WaitForObject()
 
+local ammoPanel = script:GetCustomProperty("AmmoPanel"):WaitForObject()
+local weaponIconPanel = script:GetCustomProperty("WeaponIconPanel"):WaitForObject()
+
+local katanaAmmoPanel = script:GetCustomProperty("KatanaAmmoPanel"):WaitForObject()
+local katanaIconPanel = script:GetCustomProperty("KatanaIconPanel"):WaitForObject()
+
+local weaponPanel = script:GetCustomProperty("WeaponPanel"):WaitForObject()
+local katanaPanel = script:GetCustomProperty("KatanaPanel"):WaitForObject()
+
+local katanaCrosshairPanel = script:GetCustomProperty("KatanaCrosshairPanel"):WaitForObject()
+local rifleCrosshairPanel = script:GetCustomProperty("RifleCrosshairPanel"):WaitForObject()
+
 -- User exposed properties
 local LOCAL_PLAYER = Game.GetLocalPlayer()
+
+local currWeapon = 1
 
 -- Player GetViewedPlayer()
 -- Returns which player the local player is spectating (or themselves if not spectating)
@@ -54,3 +69,47 @@ function Tick(deltaTime)
   end
 end
 
+function OnWeaponChanged(newWeapon)
+  currWeapon = newWeapon
+
+  -- Katana
+  if currWeapon == 2 then
+    ammoPanel.visibility = Visibility.FORCE_OFF
+    weaponIconPanel.visibility = Visibility.FORCE_OFF
+
+    katanaAmmoPanel.visibility = Visibility.INHERIT
+    katanaIconPanel.visibility = Visibility.INHERIT
+
+    weaponPanel.opacity = 0.5
+    katanaPanel.opacity = 1
+
+    katanaCrosshairPanel.visibility = Visibility.INHERIT
+    rifleCrosshairPanel.visibility = Visibility.FORCE_OFF
+  -- Rifle
+  else
+    ammoPanel.visibility = Visibility.INHERIT
+    weaponIconPanel.visibility = Visibility.INHERIT
+
+    katanaAmmoPanel.visibility = Visibility.FORCE_OFF
+    katanaIconPanel.visibility = Visibility.FORCE_OFF
+
+    weaponPanel.opacity = 1
+    katanaPanel.opacity = 0.5
+    
+    katanaCrosshairPanel.visibility = Visibility.FORCE_OFF
+    rifleCrosshairPanel.visibility = Visibility.INHERIT
+  end
+end
+
+function OnGameStateChanged(prevState, nextState, _, _)
+  if nextState == ABGS.GAME_STATE_GAME_END then
+    katanaCrosshairPanel.visibility = Visibility.FORCE_OFF
+    rifleCrosshairPanel.visibility = Visibility.FORCE_OFF
+  else
+    katanaCrosshairPanel.visibility = Visibility.FORCE_OFF
+    rifleCrosshairPanel.visibility = Visibility.INHERIT
+  end
+end
+
+Events.Connect("WeaponChanged", OnWeaponChanged)
+Events.Connect("GameStateChanged", OnGameStateChanged)

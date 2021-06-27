@@ -61,7 +61,7 @@ Objects {
         }
         Overrides {
           Name: "cs:HideWhenDisabled"
-          Bool: false
+          Bool: true
         }
       }
     }

@@ -15,7 +15,7 @@ Assets {
             Z: 1
           }
         }
-        ParentId: 4781671109827199097
+        ParentId: 3579954360980447585
         ChildIds: 6091570635518507984
         ChildIds: 17342228179914680811
         ChildIds: 14554342770677881249
@@ -80,7 +80,7 @@ Assets {
               Id: 307406115803496087
             }
             ReticleType {
-              Value: "mc:ereticletype:crosshair"
+              Value: "mc:ereticletype:none"
             }
             MaxAmmo: 30
             AmmoType: "rounds"
@@ -100,7 +100,6 @@ Assets {
             ReloadAbility {
               SubObjectId: 17342228179914680811
             }
-            Damage: 20
           }
         }
       }
@@ -1057,6 +1056,14 @@ Assets {
           Overrides {
             Name: "cs:DamageToAfterimage"
             Int: 50
+          }
+          Overrides {
+            Name: "cs:HeadshotDamage"
+            Float: 40
+          }
+          Overrides {
+            Name: "cs:Damage"
+            Float: 20
           }
         }
         WantsNetworking: true

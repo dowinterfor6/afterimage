@@ -74,22 +74,32 @@ function OnBindingPressed(player, bindingPressed)
 	end
 end
 
-function OnPlayerJoined(player)
+function OnPlayerDied(player)
+	Events.BroadcastToPlayer(player, "swapToOverrideCamera", true)
+end
 
+function OnPlayerSpawned(player)
+	Events.BroadcastToPlayer(player, "swapToOverrideCamera", false)
+end
+
+function OnPlayerJoined(player)
+	
 	local playerInputs = {
 		forwardLastPressed = -1,
 		backwardLastPressed = -1,
 		leftLastPressed = -1,
 		rightLastPressed = -1,
 	}
-
+	
 	local playerInfo = {
 		player = player,
 		playerInputs = playerInputs
 	}
-
+	
 	playersInfo[player.id] = playerInfo
-
+	
+	player.diedEvent:Connect(OnPlayerDied)
+	player.spawnedEvent:Connect(OnPlayerSpawned)
 	player.bindingPressedEvent:Connect(OnBindingPressed)
 end
 

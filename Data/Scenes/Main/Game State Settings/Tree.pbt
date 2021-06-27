@@ -1,65 +1,6 @@
 Name: "Game State Settings"
 RootId: 3579954360980447585
 Objects {
-  Id: 4644946512477670988
-  Name: "Round Kill Limit"
-  Transform {
-    Scale {
-      X: 1
-      Y: 1
-      Z: 1
-    }
-  }
-  ParentId: 3579954360980447585
-  UnregisteredParameters {
-  }
-  Collidable_v2 {
-    Value: "mc:ecollisionsetting:inheritfromparent"
-  }
-  Visible_v2 {
-    Value: "mc:evisibilitysetting:inheritfromparent"
-  }
-  CameraCollidable {
-    Value: "mc:ecollisionsetting:inheritfromparent"
-  }
-  TemplateInstance {
-    ParameterOverrideMap {
-      key: 625654611704035548
-      value {
-        Overrides {
-          Name: "Name"
-          String: "Round Kill Limit"
-        }
-        Overrides {
-          Name: "Position"
-          Vector {
-          }
-        }
-        Overrides {
-          Name: "Rotation"
-          Rotator {
-          }
-        }
-        Overrides {
-          Name: "Scale"
-          Vector {
-            X: 1
-            Y: 1
-            Z: 1
-          }
-        }
-        Overrides {
-          Name: "cs:KillLimit"
-          Int: 1
-        }
-      }
-    }
-    TemplateAsset {
-      Id: 10226583373665735959
-    }
-  }
-}
-Objects {
   Id: 2321556526135451823
   Name: "Lobby Start Reset KD"
   Transform {
@@ -199,7 +140,7 @@ Objects {
         }
         Overrides {
           Name: "cs:Period"
-          Float: 0
+          Float: 0.1
         }
       }
     }
@@ -248,7 +189,7 @@ Objects {
     }
     Overrides {
       Name: "cs:RoundEndDuration"
-      Float: 4
+      Float: 3
     }
     Overrides {
       Name: "cs:RoundStartHasDuration"
@@ -256,7 +197,7 @@ Objects {
     }
     Overrides {
       Name: "cs:RoundStartDuration"
-      Float: 4
+      Float: 3
     }
     Overrides {
       Name: "cs:GameEndHasDuration"
@@ -522,7 +463,11 @@ Objects {
         }
         Overrides {
           Name: "cs:RoundMessage"
-          String: "Eliminate the Enemies"
+          String: "Eliminate the Enemy"
+        }
+        Overrides {
+          Name: "cs:ShowLobbyMessage"
+          Bool: false
         }
       }
     }

@@ -20,7 +20,6 @@ OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
     The attached object reverts back to original parent once the equipment is unequipped.
 --]]
 
--- Internal custom properties
 local EQUIPMENT = script:FindAncestorByType('Equipment')
 if not EQUIPMENT:IsA('Equipment') then
     error(script.name .. " should be part of Equipment object hierarchy.")
@@ -51,7 +50,8 @@ function OnUnequipped()
         OBJECT:Detach()
         OBJECT.parent = PARENT
         OBJECT:SetTransform(ORIGINAL_LOCAL_TRANSFORM)
-    else
+    elseif Object.IsValid(OBJECT) then
+        OBJECT:Detach()
         OBJECT:Destroy()
     end
 end

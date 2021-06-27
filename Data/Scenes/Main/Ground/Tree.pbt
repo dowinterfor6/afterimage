@@ -11248,11 +11248,19 @@ Objects {
   UnregisteredParameters {
     Overrides {
       Name: "bp:Fog Density"
-      Float: 10
+      Float: 0.1
     }
     Overrides {
       Name: "bp:Falloff"
-      Float: 3
+      Float: 2
+    }
+    Overrides {
+      Name: "bp:Opacity"
+      Float: 0.25
+    }
+    Overrides {
+      Name: "bp:Volumetric Fog"
+      Bool: false
     }
   }
   Collidable_v2 {

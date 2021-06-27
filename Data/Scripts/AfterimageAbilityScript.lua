@@ -22,19 +22,18 @@ function OnAfterimageAbilityCast(ability)
   afterimageObject:SetNetworkedCustomProperty("AfterimageObjectOwner", owner.id)
 end
 
+-- TODO: Need to start as disabled/grey
+--       isEnabled not working because it needs to connect with the ability that the player has
+--       actually i have no idea why it's not working right now
+
 function OnRecallAbilityCast(ability)
   if afterimagePosition ~= nil and Object.IsValid(afterimageObject) then
     ability.owner:SetWorldPosition(afterimagePosition)
     afterimagePosition = nil
     afterimageObject:Destroy()
     afterimageObject = nil
-    -- TODO: Need to start as disabled/grey
-    -- ability.isEnabled = false
   end
 end
-
--- TODO: Toggle isEnabled, probably via tick event, based on if
---       afterimageObject is present or not
 
 afterimageAbility.castEvent:Connect(OnAfterimageAbilityCast)
 recallAbility.castEvent:Connect(OnRecallAbilityCast)

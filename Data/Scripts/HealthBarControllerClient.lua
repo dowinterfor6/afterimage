@@ -20,6 +20,10 @@ local AS = require(script:GetCustomProperty("API"))
 local COMPONENT_ROOT = script:GetCustomProperty("ComponentRoot"):WaitForObject()
 local TEXT_BOX = script:GetCustomProperty("TextBox"):WaitForObject()
 local PROGRESS_BAR = script:GetCustomProperty("ProgressBar"):WaitForObject()
+local RED_DAMAGE_PROGRESS_BAR = script:GetCustomProperty("RedDamageProgress"):WaitForObject()
+
+local redProgressRate = script:GetCustomProperty("RedProgressRate")
+local redDelay = script:GetCustomProperty("RedDelay")
 
 -- User exposed properties
 local SHOW_NUMBER = COMPONENT_ROOT:GetCustomProperty("ShowNumber")
@@ -48,19 +52,37 @@ function GetWeapon(player)
 	end
 end
 
+local prevHealth = LOCAL_PLAYER.hitPoints
+local isRedProgress = false
+local redProgressStartTime = time()
+
 function Tick(deltaTime)
     local player = GetViewedPlayer()
+
     if player then
+        if prevHealth ~= player.hitPoints and not isRedProgress then
+            isRedProgress = true
+            redProgressStartTime = time()
+        elseif prevHealth <= player.hitPoints then
+            prevHealth = player.hitPoints
+            redProgressStartTime = time()
+            
+            local redFraction = prevHealth / player.maxHitPoints
+
+            RED_DAMAGE_PROGRESS_BAR.progress = redFraction
+        else
+            local currTime = time()
+            if currTime >= redProgressStartTime + redDelay then
+                prevHealth = prevHealth - deltaTime * redProgressRate
+                
+                local redFraction = prevHealth / player.maxHitPoints
+
+                RED_DAMAGE_PROGRESS_BAR.progress = redFraction 
+            end
+        end
+
         local healthFraction = player.hitPoints / player.maxHitPoints
         PROGRESS_BAR.progress = healthFraction
-
-        -- if SHOW_NUMBER then
-        --     if SHOW_MAXIMUM then
-        --         TEXT_BOX.text = string.format("%.0f / %.0f", player.hitPoints, player.maxHitPoints)
-        --     else
-        --         TEXT_BOX.text = string.format("%.0f", player.hitPoints)
-        --     end
-        -- end
     end
 end
 

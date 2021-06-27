@@ -35,9 +35,11 @@ function RespawnPlayers()
 	local numPlayers = #Game.GetPlayers()
 	local perPlayerDelay = PERIOD / numPlayers
 	for _, player in pairs(Game.GetPlayers()) do
-		player:Spawn()
-
-		Task.Wait(perPlayerDelay)
+		if Object.IsValid(player) and player:IsA("Player") then
+			player:Spawn()
+	
+			Task.Wait(perPlayerDelay)
+		end
 	end
 end
 
@@ -45,9 +47,9 @@ end
 -- Handles respawning players when the game state switches to or from lobby state
 function OnGameStateChanged(oldState, newState, hasDuration, endTime)
 
-	-- if (newState == ABGS.GAME_STATE_LOBBY and oldState ~= ABGS.GAME_STATE_LOBBY) then
-	-- 	RespawnPlayers()
-	-- end
+	if (newState == ABGS.GAME_STATE_LOBBY and oldState ~= ABGS.GAME_STATE_LOBBY) then
+		RespawnPlayers()
+	end
 
 	-- if RESPAWN_ON_ROUND_START and
 	-- newState ~= ABGS.GAME_STATE_LOBBY and oldState == ABGS.GAME_STATE_LOBBY then

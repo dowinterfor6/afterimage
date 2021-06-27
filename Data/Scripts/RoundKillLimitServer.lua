@@ -38,32 +38,32 @@ end
 
 -- nil Tick(float)
 -- Watches for a team hitting the maximum score and ends the round
-function Tick(deltaTime)
-	if not ABGS.IsGameStateManagerRegistered() then
-		return
-	end
+-- function Tick(deltaTime)
+-- 	if not ABGS.IsGameStateManagerRegistered() then
+-- 		return
+-- 	end
 
-	if ABGS.GetGameState() == ABGS.GAME_STATE_ROUND then
-		local winner = nil
+-- 	if ABGS.GetGameState() == ABGS.GAME_STATE_ROUND then
+-- 		local winner = nil
 
-		for _, player in pairs(Game.GetPlayers()) do
-			if player.kills >= KILL_LIMIT then
-				-- TODO: End round on player.kill, use kills to keep track?
-				-- Probably use diedEvent, keep track when player dies, up to limit
-				player.kills = 0
-				if winner then
-					Events.Broadcast("TieVictory")
-					ABGS.SetGameState(ABGS.GAME_STATE_ROUND_END)
-					return
-				else
-					winner = player
-				end
-			end
-		end
+-- 		for _, player in pairs(Game.GetPlayers()) do
+-- 			if player.kills >= KILL_LIMIT then
+-- 				-- TODO: End round on player.kill, use kills to keep track?
+-- 				-- Probably use diedEvent, keep track when player dies, up to limit
+-- 				player.kills = 0
+-- 				if winner then
+-- 					Events.Broadcast("TieVictory")
+-- 					ABGS.SetGameState(ABGS.GAME_STATE_ROUND_END)
+-- 					return
+-- 				else
+-- 					winner = player
+-- 				end
+-- 			end
+-- 		end
 
-		if winner then
-			Events.Broadcast("PlayerVictory", winner)
-			ABGS.SetGameState(ABGS.GAME_STATE_ROUND_END)
-		end
-	end
-end
+-- 		if winner then
+-- 			Events.Broadcast("PlayerVictory", winner)
+-- 			ABGS.SetGameState(ABGS.GAME_STATE_ROUND_END)
+-- 		end
+-- 	end
+-- end

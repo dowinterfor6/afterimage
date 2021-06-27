@@ -34,7 +34,9 @@ local GAME_END_HAS_DURATION = COMPONENT_ROOT:GetCustomProperty("GameEndHasDurati
 local GAME_END_DURATION = COMPONENT_ROOT:GetCustomProperty("GameEndDuration")
 
 local scoreboard = {}
+local deathRecordedInRound = false
 local gameEnded = false
+local round = 0
 
 -- Check user properties
 if LOBBY_DURATION < 0.0 then
@@ -137,24 +139,55 @@ end
 -- Handles condition when state timer ran out
 function Tick(deltaTime)
 	if GetTimeRemainingInState() == 0.0 and script:GetCustomProperty("StateHasDuration") then
+		for _, player in pairs(Game.GetPlayers()) do
+			if player.deaths >= 3 then
+				gameEnded = true
+				break
+			end
+		end
+
 		local previousState = GetGameState()
 		local nextState
+
 		if previousState == ABGS.GAME_STATE_LOBBY then
 			nextState = ABGS.GAME_STATE_ROUND_START
+			round = round + 1
+			Events.BroadcastToAllPlayers("RoundNumberChanged", round)
 		elseif previousState == ABGS.GAME_STATE_ROUND_START then
+			deathRecordedInRound = false
 			nextState = ABGS.GAME_STATE_ROUND
 		elseif previousState == ABGS.GAME_STATE_ROUND then
 			-- TODO: Needs to not count kills/deaths during round end
 			nextState = ABGS.GAME_STATE_ROUND_END
 		elseif previousState == ABGS.GAME_STATE_ROUND_END and not gameEnded then
 			nextState = ABGS.GAME_STATE_ROUND_START
+			round = round + 1
+			Events.BroadcastToAllPlayers("RoundNumberChanged", round)
 		else
 			nextState = ABGS.GAME_STATE_GAME_END
+
+			local gameWinner
+			local leastDeaths = 3
+
+			for _, player in ipairs(Game.GetPlayers()) do
+				local playerDeaths = scoreboard[player.id]
+
+				if playerDeaths == nil then
+					gameWinner = player
+					break
+				end
+
+				if playerDeaths and playerDeaths < leastDeaths then
+					gameWinner = player
+					leastDeaths = playerDeaths
+				end
+			end
+
+			Events.BroadcastToAllPlayers("GameEndWinner", gameWinner)
 		end
 
 		SetGameState(nextState)
 	end
-
 
 	local currState = GetGameState()
 	local playerEnabled = currState == ABGS.GAME_STATE_ROUND or currState == ABGS.GAME_STATE_LOBBY
@@ -181,20 +214,40 @@ end
 -- TODO: Handle all round end conditions when transitioning rounds
 -- e.g. kill, fall to death, timeout
 
-function OnPlayerRoundVictory(winner)
-	if scoreboard[winner.id] == nil then
-		scoreboard[winner.id] = 1
-	else
-		scoreboard[winner.id] = scoreboard[winner.id] + 1
-	end
+function OnPlayerDied(player, damage)
+	local currState = GetGameState()
 
-	-- TODO: Make this configurable
-	gameEnded = scoreboard[winner.id] == 3
+	if currState == ABGS.GAME_STATE_ROUND and not deathRecordedInRound then
+		if scoreboard[player.id] then
+			scoreboard[player.id] = scoreboard[player.id] + 1
+		else
+			scoreboard[player.id] = 1
+		end
+
+		deathRecordedInRound = true
+		SetGameState(ABGS.GAME_STATE_ROUND_END)
+	end
+end
+
+function OnPlayerJoined(player)
+	player.diedEvent:Connect(OnPlayerDied)
+end
+
+function OnPlayerLeft(player)
+	SetGameState(ABGS.GAME_STATE_LOBBY)
+	
+	-- This reset needs to be for scoreboard and deaths, since headerUI uses deaths to calculate
+	-- This should be refactored to just use scoreboard tbh
+
+	scoreboard = {}
+	gameEnded = false
+	Events.BroadcastToAllPlayers("RoundNumberChanged", 0)
+	Events.BroadcastToAllPlayers("ResetGame")
 end
 
 -- Initialize
 SetGameState(ABGS.GAME_STATE_LOBBY)
 
 ABGS.RegisterGameStateManagerServer(GetGameState, GetTimeRemainingInState, SetGameState, SetTimeRemainingInState)
-
-Events.Connect("PlayerVictory", OnPlayerRoundVictory)
+Game.playerJoinedEvent:Connect(OnPlayerJoined)
+Game.playerLeftEvent:Connect(OnPlayerLeft)

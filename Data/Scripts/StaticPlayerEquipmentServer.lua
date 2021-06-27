@@ -27,8 +27,11 @@ local COMPONENT_ROOT = script:GetCustomProperty("ComponentRoot"):WaitForObject()
 local EQUIPMENT_TEMPLATE = COMPONENT_ROOT:GetCustomProperty("EquipmentTemplate")
 local AFTERIMAGE_EQUIPMENT = COMPONENT_ROOT:GetCustomProperty("AfterimageEquipment")
 -- TODO: Figure out weapon swapping, might need to do in playercontroller instead
--- local KATANA_EQUIPMENT = COMPONENT_ROOT:GetCustomProperty("AdvancedDualKatana")
-local DASH_EQUIPMENT = COMPONENT_ROOT:GetCustomProperty("DashEquipment")
+local KATANA_EQUIPMENT = COMPONENT_ROOT:GetCustomProperty("AdvancedDualKatana")
+local RIFLE_EQUIPMENT = COMPONENT_ROOT:GetCustomProperty("RifleTemplate")
+
+local weapon1Binding = script:GetCustomProperty("Weapon1Binding")
+local weapon2Binding = script:GetCustomProperty("Weapon2Binding")
 
 local TEAM = COMPONENT_ROOT:GetCustomProperty("Team")
 local REPLACE_ON_EACH_RESPAWN = COMPONENT_ROOT:GetCustomProperty("ReplaceOnEachRespawn")
@@ -45,7 +48,8 @@ if TEAM < 0 or TEAM > 4 then
 end
 -- Variables
 local playerTeams = {}			-- We use this to detect team changes
-local equipment = {}
+
+local equipment2 = {}
 
 -- bool AppliesToPlayersTeam(Player)
 -- Returns whether this player should get equipment given the team setting
@@ -57,47 +61,51 @@ function AppliesToPlayersTeam(player)
 	return TEAM == player.team
 end
 
--- nil GivePlayerEquipment(Player)
--- Gives the referenced equipment to the player
--- TODO: I should probably figure out why the template uses equipment object
-function GivePlayerEquipment(player)
-	equipment[player] = World.SpawnAsset(EQUIPMENT_TEMPLATE)
-	assert(equipment[player]:IsA("Equipment"))
-	
+function GivePlayerEquipment2(player)
 	local afterimageEquipment = World.SpawnAsset(AFTERIMAGE_EQUIPMENT)
-	-- local katanaEquipment = World.SpawnAsset(KATANA_EQUIPMENT)
-	-- local dashEquipment = World.SpawnAsset(DASH_EQUIPMENT)
+
+	local equipmentArray = {
+		World.SpawnAsset(RIFLE_EQUIPMENT),
+		World.SpawnAsset(KATANA_EQUIPMENT),
+		afterimageEquipment
+	}
+
+	equipment2[player] = {
+		equipment = equipmentArray,
+		currentWeapon = 1
+	}
 	
 	if player then
-		equipment[player]:Equip(player)
+		equipment2[player].equipment[1]:Equip(player)
 		afterimageEquipment:Equip(player)
-		-- katanaEquipment:Equip(player)
-		-- dashEquipment:Equip(player)
 	end
 end
 
--- nil RemovePlayerEquipment(Player)
--- Removes the referenced requipment if that player has it
-function RemovePlayerEquipment(player)
-	if equipment[player] and equipment[player]:IsValid() then
-		equipment[player]:Unequip()
+function RemovePlayerEquipment2(player)
+	local playerEquipment = equipment2[player].equipment
 
-		-- Have to check IsValid() again, because unequip may have destroyed this equipment
-		if equipment[player]:IsValid() then
-			equipment[player]:Destroy()
+	if not playerEquipment then return end
+	
+	for _, equipment in ipairs(playerEquipment) do
+		if equipment:IsValid() then
+			equipment:Unequip()
 		end
 
-		equipment[player] = nil
+		if equipment:IsValid() then
+			equipment:Destroy()
+		end
 	end
+
+	equipment2[player] = {}
 end
 
 -- nil OnPlayerRespawned(Player)
 -- Replace the equipment if ReplaceOnEachRespawn
 function OnPlayerRespawned(player)
-	RemovePlayerEquipment(player)
+	RemovePlayerEquipment2(player)
 
 	if AppliesToPlayersTeam(player) then
-		GivePlayerEquipment(player)
+		GivePlayerEquipment2(player)
 	end
 end
 
@@ -113,39 +121,43 @@ function OnPlayerJoined(player)
 	end
 
 	if AppliesToPlayersTeam(player) then
-		GivePlayerEquipment(player)
+		GivePlayerEquipment2(player)
 	end
+
+	player.bindingPressedEvent:Connect(OnBindingPressed)
 end
 
 -- nil OnPlayerLeft(Player)
 -- Removes equipment
 function OnPlayerLeft(player)
-	RemovePlayerEquipment(player)
+	-- TODO: Set game state end
+	RemovePlayerEquipment2(player)
 end
 
--- nil OnPlayerTeamChanged(Player)
--- Handles reassinging equipment if the player changes teams
-function OnPlayerTeamChanged(player)
-	RemovePlayerEquipment(player)
+function OnBindingPressed(player, bindingPressed)
+	if bindingPressed == weapon1Binding or bindingPressed == weapon2Binding then
+		local playerEquipment = equipment2[player]
 
-	if AppliesToPlayersTeam(player) then
-		GivePlayerEquipment(player)
-	end
-end
-
--- nil Tick(float)
--- Handles players changing teams
-function Tick(deltaTime)
-	if TEAM ~= 0 then
-		for _, player in pairs(Game.GetPlayers()) do
-			local team = player.team
-
-			if team ~= playerTeams[player] then
-				OnPlayerTeamChanged(player)
-
-				playerTeams[player] = team
-			end
+		
+		if bindingPressed == weapon1Binding and playerEquipment.currentWeapon ~= 1 then
+			playerEquipment.equipment[2]:Unequip(player)
+			playerEquipment.equipment[2].isEnabled = false
+			playerEquipment.equipment[2].visibility = Visibility.FORCE_OFF
+			playerEquipment.equipment[1]:Equip(player)
+			playerEquipment.equipment[1].isEnabled = true
+			playerEquipment.equipment[1].visibility = Visibility.INHERIT
+			playerEquipment.currentWeapon = 1
+		elseif bindingPressed == weapon2Binding and playerEquipment.currentWeapon ~= 2 then
+			playerEquipment.equipment[1]:Unequip(player)
+			playerEquipment.equipment[1].isEnabled = false
+			playerEquipment.equipment[1].visibility = Visibility.FORCE_OFF
+			playerEquipment.equipment[2]:Equip(player)
+			playerEquipment.equipment[2].isEnabled = true
+			playerEquipment.equipment[2].visibility = Visibility.INHERIT
+			playerEquipment.currentWeapon = 2
 		end
+
+		Events.BroadcastToPlayer(player, "WeaponChanged", playerEquipment.currentWeapon)
 	end
 end
 

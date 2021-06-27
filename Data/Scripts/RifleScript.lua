@@ -1,8 +1,12 @@
 local damageToAfterimage = script:GetCustomProperty("DamageToAfterimage")
+local headshotDamage = script:GetCustomProperty("HeadshotDamage")
+local shotDamage = script:GetCustomProperty("Damage")
 local weapon = script.parent
 
 function OnTargetImpactedEvent(weapon, impactData)
 	local target = impactData.targetObject
+
+  if not Object.IsValid(target) then return end
 
 	if target.parent ~= nil and target.parent:GetCustomProperty("IsAfterimage") then
 		local targetPlayerId = target.parent:GetCustomProperty("AfterimageObjectOwner")
@@ -26,6 +30,23 @@ function OnTargetImpactedEvent(weapon, impactData)
 
     target.parent:Destroy()
 	end
+
+  if target:IsA("Player") then
+    local weaponOwner = impactData.weaponOwner
+    local numberOfHits = #impactData:GetHitResults()
+
+    local damageDealt = shotDamage
+    if impactData.isHeadshot then
+      damageDealt = headshotDamage
+    end
+
+    local additionalDamageInfo = Damage.New(damageDealt * numberOfHits)
+    additionalDamageInfo.reason = DamageReason.COMBAT
+    additionalDamageInfo.sourceAbility = impactData.sourceAbility
+    additionalDamageInfo.sourcePlayer = weaponOwner
+
+    target:ApplyDamage(additionalDamageInfo)
+  end
 end
 
 weapon.targetImpactedEvent:Connect(OnTargetImpactedEvent)

@@ -96,7 +96,7 @@ function Tick(deltaTime)
         local currentPhase = currentAbility:GetCurrentPhase()
         local phaseTime = currentAbility:GetPhaseTimeRemaining()
 
-        -- TODO: This could probably be optimized
+        -- TODO: This could probably be optimized)
         if currentAbility.isEnabled == false then
             CANVAS.visibility = Visibility.FORCE_OFF
         else 

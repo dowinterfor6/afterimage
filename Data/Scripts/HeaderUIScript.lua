@@ -30,31 +30,43 @@ local localPlayer = Game.GetLocalPlayer()
 
 profileIcon:SetPlayerProfile(localPlayer)
 playerNameText.text = localPlayer.name
+playerNameText.visibility = Visibility.INHERIT
 
 local otherPlayer
 
-p2PlayerName.text = "Waiting..."
+local round
 
 -- TODO: Visibility off before these values are loaded
 
-win1.visibility = Visibility.FORCE_OFF
-win2.visibility = Visibility.FORCE_OFF
-win3.visibility = Visibility.FORCE_OFF
-p2Win1.visibility = Visibility.FORCE_OFF
-p2Win2.visibility = Visibility.FORCE_OFF
-p2Win3.visibility = Visibility.FORCE_OFF
+-- win1.visibility = Visibility.FORCE_OFF
+-- win2.visibility = Visibility.FORCE_OFF
+-- win3.visibility = Visibility.FORCE_OFF
+-- p2Win1.visibility = Visibility.FORCE_OFF
+-- p2Win2.visibility = Visibility.FORCE_OFF
+-- p2Win3.visibility = Visibility.FORCE_OFF
 
 function UpdateTimeRemaining(remainingTime)
   if remainingTime then
     stateTimeText.visibility = Visibility.INHERIT
-    local minutes = math.floor(remainingTime) // 60 % 60
-    local seconds = math.floor(remainingTime) % 60
+    local minutes = math.ceil(remainingTime) // 60 % 60
+    local seconds = math.ceil(remainingTime) % 60
     if minutes == 0 and seconds < 10 then
-      stateTimeText.text = string.format("%01d", seconds)
+      if seconds == 0 then
+        stateTimeText.text = ""
+      else
+        stateTimeText.text = string.format("%01d", seconds)
+      end
     else
       stateTimeText.text = string.format("%02d:%02d", minutes, seconds)
     end
   end
+end
+
+function ResetOtherPlayer()
+  otherPlayer = nil
+  p2PlayerName.text = "Waiting..."
+  p2PlayerName.visibility = Visibility.INHERIT
+  p2ProfileIcon.visibility = Visibility.FORCE_OFF
 end
 
 function Tick(deltaTime)
@@ -63,6 +75,7 @@ function Tick(deltaTime)
       if player ~= localPlayer then
         otherPlayer = player
         p2ProfileIcon:SetPlayerProfile(otherPlayer)
+        p2ProfileIcon.visibility = Visibility.INHERIT
         p2PlayerName.text = otherPlayer.name
         break
       end
@@ -73,6 +86,7 @@ function Tick(deltaTime)
   if ABGS.IsGameStateManagerRegistered() then
       -- Hide things by default, let specific logic show it when needed
       stateNameText.text = ""
+      stateNameText.visibility = Visibility.INHERIT
       stateTimeText.visibility = Visibility.FORCE_OFF
       local currentState = ABGS.GetGameState()
       local remainingTime = ABGS.GetTimeRemainingInState()
@@ -82,13 +96,12 @@ function Tick(deltaTime)
         UpdateTimeRemaining(remainingTime)
       end
 
-      if currentState == ABGS.GAME_STATE_ROUND_START then
-        stateNameText.text = "Round Start"
-        UpdateTimeRemaining(remainingTime)
-      end
-
-      if currentState == ABGS.GAME_STATE_ROUND then
-        stateNameText.text = "Round"
+      if 
+        currentState == ABGS.GAME_STATE_ROUND
+        or
+        currentState == ABGS.GAME_STATE_ROUND_START
+      then
+        stateNameText.text = "Round " .. string.format(round)
         UpdateTimeRemaining(remainingTime)
       end
 
@@ -136,3 +149,24 @@ function Tick(deltaTime)
   end
 end
 
+function OnRoundNumberChange(newRound)
+  round = newRound
+end
+
+function OnResetGame()
+  ResetOtherPlayer()
+
+  for i = 1, 3 do
+    p1WinIndicators[i].visibility = Visibility.FORCE_OFF
+  end
+  
+  for i = 1, 3 do
+    p2WinIndicators[i].visibility = Visibility.FORCE_OFF
+  end
+end
+
+Events.Connect("RoundNumberChanged", OnRoundNumberChange)
+Events.Connect("ResetGame", OnResetGame)
+
+stateNameText.visibility = Visibility.FORCE_OFF
+ResetOtherPlayer()

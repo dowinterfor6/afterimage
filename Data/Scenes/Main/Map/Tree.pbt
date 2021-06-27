@@ -92,15 +92,15 @@ Objects {
         Overrides {
           Name: "Scale"
           Vector {
-            X: 150
-            Y: 100
+            X: 1000
+            Y: 1000
             Z: 1
           }
         }
         Overrides {
           Name: "Position"
           Vector {
-            Z: -6664.79395
+            Z: -964.213745
           }
         }
       }
